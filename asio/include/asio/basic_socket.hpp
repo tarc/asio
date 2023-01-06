@@ -39,6 +39,10 @@
 # include "asio/detail/reactive_socket_service.hpp"
 #endif
 
+/* multiple_datagram_buffers patch */
+#include "asio/multiple_datagram_buffers.hpp"
+/* multiple_datagram_buffers patch */
+
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
