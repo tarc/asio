@@ -39,6 +39,9 @@
 #include "asio/detail/socket_holder.hpp"
 #include "asio/detail/socket_ops.hpp"
 #include "asio/detail/socket_types.hpp"
+/* multiple_datagram_buffers patch */
+#include "asio/multiple_datagram_buffers.hpp"
+/* multiple_datagram_buffers patch */
 
 #include "asio/detail/push_options.hpp"
 
@@ -246,6 +249,17 @@ public:
         false, false, false, &io_ex, 0);
     p.v = p.p = 0;
   }
+
+/* multiple_datagram_buffers patch */
+#if defined(ASIO_HAS_RECVMMSG)
+  template <typename ConstBufferSequence>
+  size_t send_multiple_datagram_buffers(base_implementation_type& impl,
+      const ConstBufferSequence& buffers,
+      socket_base::message_flags flags, asio::error_code& ec)
+  {
+  }
+#endif // defined(ASIO_HAS_RECVMMSG)
+/* multiple_datagram_buffers patch */
 
   // Send the given data to the peer.
   template <typename ConstBufferSequence>
