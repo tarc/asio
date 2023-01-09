@@ -768,14 +768,13 @@ public:
           buffer_sequence();
       auto composed_token = [moved_token = std::move(token),
           &multiple_buffer_sequence_operation, 
-          multiple_buffer_sequence_operation_index,
-          multiple_buffer_sequence_operation_count](asio::error_code ec, 
+          index = multiple_buffer_sequence_operation_index,
+          count = multiple_buffer_sequence_operation_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
             ec);
-        moved_token(ec, multiple_buffer_sequence_operation_index.
-            multiple_buffer_sequence_operation_count, bytes_transferred);
+        moved_token(ec, index, count, bytes_transferred);
       };
       async_send(buffer_sequence, composed_token);
       ++iterator;
@@ -934,14 +933,13 @@ public:
           buffer_sequence();
       auto composed_token = [moved_token = std::move(token),
           &multiple_buffer_sequence_operation, 
-          multiple_buffer_sequence_operation_index,
-          multiple_buffer_sequence_operation_count](asio::error_code ec, 
+          index = multiple_buffer_sequence_operation_index,
+          count = multiple_buffer_sequence_operation_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
             ec);
-        moved_token(ec, multiple_buffer_sequence_operation_index.
-            multiple_buffer_sequence_operation_count, bytes_transferred);
+        moved_token(ec, index, count, bytes_transferred);
       };
       async_send(buffer_sequence, flags, composed_token);
       ++iterator;
@@ -1008,7 +1006,7 @@ public:
       asio::error_code ec;
       std::size_t s = this->impl_.get_service().
           send_multiple_buffer_sequence_to(this->impl_.get_implementation(),
-          multiple_buffer_sequence, destination, 0, ec);
+          multiple_buffer_sequence, 0, ec);
       asio::detail::throw_error(ec, "send_multiple_buffer_sequence_to");
       return s;
     }
@@ -1098,7 +1096,7 @@ public:
       asio::error_code ec;
       std::size_t s = this->impl_.get_service().
           send_multiple_buffer_sequence_to(this->impl_.get_implementation(), 
-          multiple_buffer_sequence, destination, flags, ec);
+          multiple_buffer_sequence, flags, ec);
       asio::detail::throw_error(ec, "send_multiple_buffer_sequence_to");
       return s;
     }
@@ -1185,8 +1183,8 @@ public:
     if (multiple_buffer_sequence.size() > 1)
     {
       return this->impl_.get_service().send_multiple_buffer_sequence_to(
-          this->impl_.get_implementation(), multiple_buffer_sequence, 
-          destination, flags, ec);
+          this->impl_.get_implementation(), multiple_buffer_sequence, flags, 
+          ec);
     }
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
@@ -1354,8 +1352,8 @@ public:
     {
       return async_initiate<WriteMultipleToken,
         void (asio::error_code, std::size_t, std::size_t, std::size_t)>(
-          initiate_async_send_multiple_buffer_sequence_to(this), token, buffers,
-          socket_base::message_flags(0));
+          initiate_async_send_multiple_buffer_sequence_to(this), token,
+          multiple_buffer_sequence, socket_base::message_flags(0));
     }
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
@@ -1378,14 +1376,13 @@ public:
           multiple_buffer_sequence_operation.endpoint();
       auto composed_token = [moved_token = std::move(token),
           &multiple_buffer_sequence_operation, 
-          multiple_buffer_sequence_operation_index,
-          multiple_buffer_sequence_operation_count](asio::error_code ec, 
+          index = multiple_buffer_sequence_operation_index,
+          count = multiple_buffer_sequence_operation_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
             ec);
-        moved_token(ec, multiple_buffer_sequence_operation_index.
-            multiple_buffer_sequence_operation_count, bytes_transferred);
+        moved_token(ec, index, count, bytes_transferred);
       };
       async_send_to(buffer_sequence, endpoint, composed_token);
       ++iterator;
@@ -1520,8 +1517,8 @@ public:
     {
       return async_initiate<WriteMultipleToken,
         void (asio::error_code, std::size_t, std::size_t, std::size_t)>(
-          initiate_async_send_multiple_buffer_sequence_to(this), token, buffers,
-          flags);
+          initiate_async_send_multiple_buffer_sequence_to(this), token,
+          multiple_buffer_sequence, flags);
     }
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
@@ -1544,14 +1541,13 @@ public:
           multiple_buffer_sequence_operation.endpoint();
       auto composed_token = [moved_token = std::move(token),
           &multiple_buffer_sequence_operation, 
-          multiple_buffer_sequence_operation_index,
-          multiple_buffer_sequence_operation_count](asio::error_code ec, 
+          index = multiple_buffer_sequence_operation_index,
+          count = multiple_buffer_sequence_operation_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
             ec);
-        moved_token(ec, multiple_buffer_sequence_operation_index.
-            multiple_buffer_sequence_operation_count, bytes_transferred);
+        moved_token(ec, index, count, bytes_transferred);
       };
       async_send_to(buffer_sequence, endpoint, flags, composed_token);
       ++iterator;
@@ -2664,7 +2660,7 @@ public:
           ec);
       moved_token(ec, 0, 1, bytes_transferred);
     };
-    async_receive_from(buffer_sequence, endpoint, flags. composed_token);
+    async_receive_from(buffer_sequence, endpoint, flags, composed_token);
   }
 
 private:
@@ -2871,7 +2867,7 @@ private:
       // If you get an error on the following line it means that your handler
       // does not meet the documented type requirements for a
       // ReadMultipleHandler.
-      ASIO_READ_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
+      ASIO_READ_MULTIPLE_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
 
       detail::non_const_lvalue<ReadMultipleHandler> handler2(handler);
       self_->impl_.get_service().async_receive_multiple_buffer_sequence(
@@ -2941,7 +2937,7 @@ private:
       // If you get an error on the following line it means that your handler
       // does not meet the documented type requirements for a
       // ReadMultipleHandler.
-      ASIO_READ_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
+      ASIO_READ_MULTIPLE_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
 
       detail::non_const_lvalue<ReadMultipleHandler> handler2(handler);
       self_->impl_.get_service().async_receive_multiple_buffer_sequence_from(
