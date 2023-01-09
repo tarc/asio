@@ -577,7 +577,7 @@ public:
       = asio::get_associated_cancellation_slot(handler);
 
     // Allocate and construct an operation to wrap the handler.
-    typedef reactive_socket_recv_op<
+    typedef reactive_socket_recvmmsg_op<
         MultipleBufferSequence, Handler, IoExecutor> op;
     typename op::ptr p = { asio::detail::addressof(handler),
       op::ptr::allocate(handler), 0 };
@@ -800,7 +800,7 @@ public:
       = asio::get_associated_cancellation_slot(handler);
 
     // Allocate and construct an operation to wrap the handler.
-    typedef reactive_socket_recvmsg_op<
+    typedef reactive_socket_recvmmsg_op<
         MultipleBufferSequence, Handler, IoExecutor> op;
     typename op::ptr p = { asio::detail::addressof(handler),
       op::ptr::allocate(handler), 0 };
