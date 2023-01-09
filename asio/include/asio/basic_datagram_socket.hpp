@@ -418,9 +418,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       asio::error_code ec;
       std::size_t bytes_transferred = send(buffer_sequence, 0, ec);
       multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
@@ -510,9 +510,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       asio::error_code ec;
       std::size_t bytes_transferred = send(buffer_sequence, flags, ec);
       multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
@@ -595,9 +595,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       std::size_t bytes_transferred = send(buffer_sequence, flags, ec);
       multiple_buffer_sequence_operation.complete_operation(bytes_transferred, 
           ec);
@@ -763,9 +763,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       auto composed_token = [ASIO_MOVE_ARG(WriteMultipleToken) token, 
           &multiple_buffer_sequence_operation, 
           multiple_buffer_sequence_operation_index,
@@ -929,9 +929,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       auto composed_token = [ASIO_MOVE_ARG(WriteMultipleToken) token, 
           &multiple_buffer_sequence_operation, 
           multiple_buffer_sequence_operation_index,
@@ -1024,9 +1024,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_operation.endpoint();
       asio::error_code ec;
@@ -1114,9 +1114,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_operation.endpoint();
       asio::error_code ec;
@@ -1200,9 +1200,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_operation.endpoint();
       std::size_t bytes_transferred = send_to(buffer_sequence, endpoint, flags,
@@ -1371,9 +1371,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_operation.endpoint();
       auto composed_token = [ASIO_MOVE_ARG(WriteMultipleToken) token, 
@@ -1537,9 +1537,9 @@ public:
     {
       const typename MultipleBufferSequence::value_type&
           multiple_buffer_sequence_operation = *iterator;
-      const typename MultipleBufferSequence::buffer_sequence_type&
+      const typename MultipleBufferSequence::buffer_sequence_adapter_type&
           buffer_sequence = multiple_buffer_sequence_operation.
-          buffer_sequence();
+          buffer_sequence_adapter();
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_operation.endpoint();
       auto composed_token = [ASIO_MOVE_ARG(WriteMultipleToken) token, 
@@ -1629,7 +1629,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     asio::error_code ec;
@@ -1713,7 +1713,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     asio::error_code ec;
@@ -1791,7 +1791,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     std::size_t bytes_transferred = receive(buffer_sequence, flags, ec);
@@ -1948,7 +1948,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     auto composed_token = [ASIO_MOVE_ARG(ReadMultipleToken) token, 
@@ -2100,7 +2100,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     auto composed_token = [ASIO_MOVE_ARG(ReadMultipleToken) token, 
@@ -2183,7 +2183,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     const typename MultipleBufferSequence::endpoint_type& endpoint = 
@@ -2264,7 +2264,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     const typename MultipleBufferSequence::endpoint_type& endpoint = 
@@ -2339,7 +2339,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     const typename MultipleBufferSequence::endpoint_type& endpoint = 
@@ -2497,7 +2497,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     const typename MultipleBufferSequence::endpoint_type& endpoint = 
@@ -2651,7 +2651,7 @@ public:
     // receive_multiple_buffer_sequence...
     const typename MultipleBufferSequence::value_type&
         multiple_buffer_sequence_operation = multiple_buffer_sequence.front();
-    const typename MultipleBufferSequence::buffer_sequence_type&
+    const typename MultipleBufferSequence::buffer_sequence_adapter_type&
         buffer_sequence = multiple_buffer_sequence_operation.
         buffer_sequence();
     const typename MultipleBufferSequence::endpoint_type& endpoint = 
@@ -2706,6 +2706,42 @@ private:
   private:
     basic_datagram_socket* self_;
   };
+  
+  class initiate_async_send_multiple_buffer_sequence
+  { 
+  public:
+    typedef Executor executor_type;
+
+    explicit initiate_async_send_multiple_buffer_sequence(
+        basic_datagram_socket* self)
+      : self_(self)
+    {
+    }
+
+    const executor_type& get_executor() const ASIO_NOEXCEPT
+    {
+      return self_->get_executor();
+    }
+
+    template <typename WriteMultipleHandler, typename MultipleBufferSequence>
+    void operator()(ASIO_MOVE_ARG(WriteMultipleHandler) handler,
+        const MultipleBufferSequence& multiple_buffer_sequence,
+        socket_base::message_flags flags) const
+    {
+      // If you get an error on the following line it means that your handler
+      // does not meet the documented type requirements for a 
+      // WriteMultipleHandler.
+      ASIO_WRITE_HANDLER_CHECK(WriteMultipleHandler, handler) type_check;
+
+      detail::non_const_lvalue<WriteMultipleHandler> handler2(handler);
+      self_->impl_.get_service().async_send(
+          self_->impl_.get_implementation(), multiple_buffer_sequence, flags,
+          handler2.value, self_->impl_.get_executor());
+    }
+
+  private:
+    basic_datagram_socket* self_;
+  };
 
   class initiate_async_send_to
   {
@@ -2734,6 +2770,42 @@ private:
       detail::non_const_lvalue<WriteHandler> handler2(handler);
       self_->impl_.get_service().async_send_to(
           self_->impl_.get_implementation(), buffers, destination,
+          flags, handler2.value, self_->impl_.get_executor());
+    }
+
+  private:
+    basic_datagram_socket* self_;
+  };
+
+  class initiate_async_send_multiple_buffer_sequence_to
+  {
+  public:
+    typedef Executor executor_type;
+
+    explicit initiate_async_send_multiple_buffer_sequence_to(
+        basic_datagram_socket* self)
+      : self_(self)
+    {
+    }
+
+    const executor_type& get_executor() const ASIO_NOEXCEPT
+    {
+      return self_->get_executor();
+    }
+
+    template <typename WriteMultipleHandler, typename MultipleBufferSequence>
+    void operator()(ASIO_MOVE_ARG(WriteMultipleHandler) handler,
+        const MultipleBufferSequence& multiple_buffer_sequence,
+        socket_base::message_flags flags) const
+    {
+      // If you get an error on the following line it means that your handler
+      // does not meet the documented type requirements for a 
+      // WriteMultipleHandler.
+      ASIO_WRITE_HANDLER_CHECK(WriteMultipleHandler, handler) type_check;
+
+      detail::non_const_lvalue<WriteMultipleHandler> handler2(handler);
+      self_->impl_.get_service().async_send_multiple_buffer_sequence_to(
+          self_->impl_.get_implementation(), multiple_buffer_sequence,
           flags, handler2.value, self_->impl_.get_executor());
     }
 
@@ -2775,6 +2847,42 @@ private:
     basic_datagram_socket* self_;
   };
 
+  class initiate_async_receive_multiple_buffer_sequence
+  {
+  public:
+    typedef Executor executor_type;
+
+    explicit initiate_async_receive_multiple_buffer_sequence(
+        basic_datagram_socket* self)
+      : self_(self)
+    {
+    }
+
+    const executor_type& get_executor() const ASIO_NOEXCEPT
+    {
+      return self_->get_executor();
+    }
+
+    template <typename ReadMultipleHandler, typename MultipleBufferSequence>
+    void operator()(ASIO_MOVE_ARG(ReadMultipleHandler) handler,
+        const MultipleBufferSequence& multiple_buffer_sequence,
+        socket_base::message_flags flags) const
+    {
+      // If you get an error on the following line it means that your handler
+      // does not meet the documented type requirements for a
+      // ReadMultipleHandler.
+      ASIO_READ_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
+
+      detail::non_const_lvalue<ReadMultipleHandler> handler2(handler);
+      self_->impl_.get_service().async_receive_multiple_buffer_sequence(
+          self_->impl_.get_implementation(), multiple_buffer_sequence, flags,
+          handler2.value, self_->impl_.get_executor());
+    }
+
+  private:
+    basic_datagram_socket* self_;
+  };
+
   class initiate_async_receive_from
   {
   public:
@@ -2802,6 +2910,42 @@ private:
       detail::non_const_lvalue<ReadHandler> handler2(handler);
       self_->impl_.get_service().async_receive_from(
           self_->impl_.get_implementation(), buffers, *sender_endpoint,
+          flags, handler2.value, self_->impl_.get_executor());
+    }
+
+  private:
+    basic_datagram_socket* self_;
+  };
+
+  class initiate_async_receive_multiple_buffer_sequence_from
+  {
+  public:
+    typedef Executor executor_type;
+
+    explicit initiate_async_receive_multiple_buffer_sequence_from(
+        basic_datagram_socket* self)
+      : self_(self)
+    {
+    }
+
+    const executor_type& get_executor() const ASIO_NOEXCEPT
+    {
+      return self_->get_executor();
+    }
+
+    template <typename ReadMultipleHandler, typename MultipleBufferSequence>
+    void operator()(ASIO_MOVE_ARG(ReadMultipleHandler) handler,
+        const MultipleBufferSequence& multiple_buffer_sequence,
+        socket_base::message_flags flags) const
+    {
+      // If you get an error on the following line it means that your handler
+      // does not meet the documented type requirements for a
+      // ReadMultipleHandler.
+      ASIO_READ_HANDLER_CHECK(ReadMultipleHandler, handler) type_check;
+
+      detail::non_const_lvalue<ReadMultipleHandler> handler2(handler);
+      self_->impl_.get_service().async_receive_multiple_buffer_sequence_from(
+          self_->impl_.get_implementation(), multiple_buffer_sequence,
           flags, handler2.value, self_->impl_.get_executor());
     }
 
