@@ -118,6 +118,11 @@
 # include <android/api-level.h>
 #endif // defined(__ANDROID__)
 
+// Support static_assert
+#if defined(__cpp_static_assert)
+# define ASIO_HAS_STATIC_ASSERT 1
+#endif // defined(__cpp_static_assert)
+
 // Always enabled. Retained for backwards compatibility in user code.
 #if !defined(ASIO_DISABLE_CXX11_MACROS)
 # define ASIO_HAS_MOVE 1
@@ -859,12 +864,24 @@
 #   error Linux kernel 5.10 or later is required to support io_uring
 #  endif // LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 # endif // defined(ASIO_HAS_IO_URING)
+# if !defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+#  if !defined(ASIO_DISABLE_MULTIPLE_BUFFER_SEQUENCE_IO)
+#   if (__GLIBC__ > 2) || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 12)
+#    define ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO 1
+#    define ASIO_MULTIPLE_BUFFER_SEQUENCE_MAXIMUM_OPERATIONS_PER_IO 1024
+#   endif // (__GLIBC__ > 2) || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 12)
+#  endif // !defined(ASIO_DISABLE_MULTIPLE_BUFFER_SEQUENCE_IO)
+# endif // !defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
 #endif // defined(__linux__)
 
 // Linux: io_uring is used instead of epoll.
 #if !defined(ASIO_HAS_IO_URING_AS_DEFAULT)
 # if !defined(ASIO_HAS_EPOLL) && defined(ASIO_HAS_IO_URING)
 #  define ASIO_HAS_IO_URING_AS_DEFAULT 1
+#  if defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+#   undef ASIO_MULTIPLE_BUFFER_SEQUENCE_MAXIMUM_OPERATIONS_PER_IO_OPERATION
+#   undef ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO
+#  endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
 # endif // !defined(ASIO_HAS_EPOLL) && defined(ASIO_HAS_IO_URING)
 #endif // !defined(ASIO_HAS_IO_URING_AS_DEFAULT)
 
