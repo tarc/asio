@@ -285,7 +285,7 @@ public:
 
     size_t result = socket_ops::sync_sendmmsg(impl.socket_, impl.state_,
         mbufs.native_buffers(), mbufs.native_buffer_size(), flags,
-        ec);
+        mbufs.all_empty(), ec);
 
     mbufs.do_complete(result, ec);
 

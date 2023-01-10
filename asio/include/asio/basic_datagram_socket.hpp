@@ -387,7 +387,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    *
    * @note The send operation can only be used with a connected socket. Use
    * the send_to function to send data on an unconnected datagram socket.
@@ -477,7 +478,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    *
    * @note The send operation can only be used with a connected socket. Use
    * the send_to function to send data on an unconnected datagram socket.
@@ -993,7 +995,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    */
   template <typename MultipleBufferSequence>
   std::size_t send_multiple_buffer_sequence_to(
@@ -1082,7 +1085,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    */
   template <typename MultipleBufferSequence>
   std::size_t send_multiple_buffer_sequence_to(
@@ -1599,7 +1603,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    *
    * @note The receive operation can only be used with a connected socket. Use
    * the receive_from function to receive data on an unconnected datagram
@@ -1682,7 +1687,8 @@ public:
    *
    * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    *
    * @note The receive operation can only be used with a connected socket. Use
    * the receive_from function to receive data on an unconnected datagram
@@ -2155,9 +2161,10 @@ public:
    * @param multiple_buffer_sequence One ore more data buffers to be sent on the
    * socket. The sender endpoint are also paired with data buffers.
    *
-   * @returns The number of bytes received.
+   * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    */
   template <typename MultipleBufferSequence>
   std::size_t receive_multiple_buffer_sequence_from(
@@ -2234,9 +2241,10 @@ public:
    *
    * @param flags Flags specifying how the receive call is to be made.
    *
-   * @returns The number of bytes received.
+   * @returns The number of operations completed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws asio::system_error Thrown on failure, std::out_of_range on empty
+   * multiple buffer sequence
    */
   template <typename MultipleBufferSequence>
   std::size_t receive_multiple_buffer_sequence_from(
@@ -2315,7 +2323,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    *
-   * @returns The number of bytes received.
+   * @returns The number of operations completed.
    */
   template <typename MultipleBufferSequence>
   std::size_t receive_multiple_buffer_sequence_from(
