@@ -766,6 +766,7 @@ public:
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
     // send_multiple_buffer_sequence...
+    detail::mutex lock;
     typename MultipleBufferSequence::iterator iterator =
         multiple_buffer_sequence.begin();
     typename MultipleBufferSequence::iterator end =
@@ -781,13 +782,20 @@ public:
           buffer_sequence = multiple_buffer_sequence_op.
           buffer_sequence();
       auto composed_token = [moved_token = std::move(token),
-          &multiple_buffer_sequence_op, &multiple_buffer_sequence,
+          &multiple_buffer_sequence_op, &multiple_buffer_sequence, &lock,
           index = multiple_buffer_sequence_op_index,
           count = multiple_buffer_sequence_op_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_op.do_complete(bytes_transferred, 
             ec);
+        {
+          detail::scoped_lock<detail::mutex> scoped_lock(lock);
+          multiple_buffer_sequence.set_completed_ops(
+              multiple_buffer_sequence.completed_ops() + 1);
+          multiple_buffer_sequence.set_bytes_transferred(
+              multiple_buffer_sequence.bytes_transferred() + bytes_transferred);
+        }
         moved_token(ec, index, count, bytes_transferred);
       };
       async_send(buffer_sequence, composed_token);
@@ -931,6 +939,7 @@ public:
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
     // send_multiple_buffer_sequence...
+    detail::mutex lock;
     typename MultipleBufferSequence::iterator iterator =
         multiple_buffer_sequence.begin();
     typename MultipleBufferSequence::iterator end =
@@ -946,13 +955,20 @@ public:
           buffer_sequence = multiple_buffer_sequence_op.
           buffer_sequence();
       auto composed_token = [moved_token = std::move(token),
-          &multiple_buffer_sequence_op, &multiple_buffer_sequence,
+          &multiple_buffer_sequence_op, &multiple_buffer_sequence, &lock,
           index = multiple_buffer_sequence_op_index,
           count = multiple_buffer_sequence_op_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_op.do_complete(bytes_transferred, 
             ec);
+        {
+          detail::scoped_lock<detail::mutex> scoped_lock(lock);
+          multiple_buffer_sequence.set_completed_ops(
+              multiple_buffer_sequence.completed_ops() + 1);
+          multiple_buffer_sequence.set_bytes_transferred(
+              multiple_buffer_sequence.bytes_transferred() + bytes_transferred);
+        }
         moved_token(ec, index, count, bytes_transferred);
       };
       async_send(buffer_sequence, flags, composed_token);
@@ -1386,6 +1402,7 @@ public:
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
     // send_multiple_buffer_sequence...
+    detail::mutex lock;
     typename MultipleBufferSequence::iterator iterator =
         multiple_buffer_sequence.begin();
     typename MultipleBufferSequence::iterator end =
@@ -1403,13 +1420,20 @@ public:
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_op.endpoint();
       auto composed_token = [moved_token = std::move(token),
-          &multiple_buffer_sequence_op, &multiple_buffer_sequence,
+          &multiple_buffer_sequence_op, &multiple_buffer_sequence, &lock,
           index = multiple_buffer_sequence_op_index,
           count = multiple_buffer_sequence_op_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_op.do_complete(bytes_transferred, 
             ec);
+        {
+          detail::scoped_lock<detail::mutex> scoped_lock(lock);
+          multiple_buffer_sequence.set_completed_ops(
+              multiple_buffer_sequence.completed_ops() + 1);
+          multiple_buffer_sequence.set_bytes_transferred(
+              multiple_buffer_sequence.bytes_transferred() + bytes_transferred);
+        }
         moved_token(ec, index, count, bytes_transferred);
       };
       async_send_to(buffer_sequence, endpoint, composed_token);
@@ -1551,6 +1575,7 @@ public:
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
     // Try to send the buffers one by one in case of missing system call for
     // send_multiple_buffer_sequence...
+    detail::mutex lock;
     typename MultipleBufferSequence::iterator iterator =
         multiple_buffer_sequence.begin();
     typename MultipleBufferSequence::iterator end =
@@ -1568,13 +1593,20 @@ public:
       const typename MultipleBufferSequence::endpoint_type& endpoint = 
           multiple_buffer_sequence_op.endpoint();
       auto composed_token = [moved_token = std::move(token),
-          &multiple_buffer_sequence_op, &multiple_buffer_sequence,
+          &multiple_buffer_sequence_op, &multiple_buffer_sequence, &lock,
           index = multiple_buffer_sequence_op_index,
           count = multiple_buffer_sequence_op_count](asio::error_code ec, 
             std::size_t bytes_transferred) mutable
       {
         multiple_buffer_sequence_op.do_complete(bytes_transferred, 
             ec);
+        {
+          detail::scoped_lock<detail::mutex> scoped_lock(lock);
+          multiple_buffer_sequence.set_completed_ops(
+              multiple_buffer_sequence.completed_ops() + 1);
+          multiple_buffer_sequence.set_bytes_transferred(
+              multiple_buffer_sequence.bytes_transferred() + bytes_transferred);
+        }
         moved_token(ec, index, count, bytes_transferred);
       };
       async_send_to(buffer_sequence, endpoint, flags, composed_token);
