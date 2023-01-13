@@ -1494,7 +1494,7 @@ ASIO_DECL size_t sync_recvmmsg(socket_type s, state_type state, mbufs* bufs,
 
 ASIO_DECL bool non_blocking_recvmmsg(socket_type s, mbufs* bufs, size_t count,
     int flags, bool is_stream, asio::error_code& ec, size_t& bytes_transferred,
-    size_t& completed_ops)
+    size_t& operations_executed)
 {
   for (;;)
   {
@@ -1517,7 +1517,7 @@ ASIO_DECL bool non_blocking_recvmmsg(socket_type s, mbufs* bufs, size_t count,
       {
         bytes_transferred += bufs[i].msg_len;
       }
-      completed_ops = operations;
+      operations_executed = operations;
       return true;
     }
 
@@ -2037,7 +2037,7 @@ ASIO_DECL size_t sync_sendmmsg(socket_type s, state_type state,
 
 ASIO_DECL bool non_blocking_sendmmsg(socket_type s, mbufs* bufs,
     size_t count, int flags, asio::error_code& ec, size_t& bytes_transferred,
-    size_t& completed_ops)
+    size_t& operations_executed)
 {
   for (;;)
   {
@@ -2053,7 +2053,7 @@ ASIO_DECL bool non_blocking_sendmmsg(socket_type s, mbufs* bufs,
       {
         bytes_transferred += bufs[i].msg_len;
       }
-      completed_ops = operations;
+      operations_executed = operations;
       return true;
     }
 
@@ -2068,7 +2068,7 @@ ASIO_DECL bool non_blocking_sendmmsg(socket_type s, mbufs* bufs,
 
     // Operation failed.
     bytes_transferred = 0;
-    completed_ops = 0;
+    operations_executed = 0;
     return true;
   }
 }
