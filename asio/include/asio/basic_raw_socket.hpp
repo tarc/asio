@@ -2774,6 +2774,9 @@ private:
           self_->impl_.get_implementation(), multiple_buffer_sequence, flags,
           handler2.value, self_->impl_.get_executor());
 #else // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+      ASIO_UNUSED_PARAMETER(multiple_buffer_sequence);
+      ASIO_UNUSED_PARAMETER(flags);
+
       throw std::runtime_error("io service does not implemented method "
           "async_send_multiple_buffer_sequence");
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
@@ -2850,6 +2853,9 @@ private:
           self_->impl_.get_implementation(), multiple_buffer_sequence,
           flags, handler2.value, self_->impl_.get_executor());
 #else // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+      ASIO_UNUSED_PARAMETER(multiple_buffer_sequence);
+      ASIO_UNUSED_PARAMETER(flags);
+
       throw std::runtime_error("io service does not implemented method "
           "async_send_multiple_buffer_sequence_to");
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
@@ -2925,6 +2931,9 @@ private:
           self_->impl_.get_implementation(), multiple_buffer_sequence, flags,
           handler2.value, self_->impl_.get_executor());
 #else // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+      ASIO_UNUSED_PARAMETER(multiple_buffer_sequence);
+      ASIO_UNUSED_PARAMETER(flags);
+
       throw std::runtime_error("io service does not implemented method "
           "async_receive_multiple_buffer_sequence");
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
@@ -3001,6 +3010,9 @@ private:
           self_->impl_.get_implementation(), multiple_buffer_sequence,
           flags, handler2.value, self_->impl_.get_executor());
 #else // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)
+      ASIO_UNUSED_PARAMETER(multiple_buffer_sequence);
+      ASIO_UNUSED_PARAMETER(flags);
+
       throw std::runtime_error("io service does not implemented method "
           "async_receive_multiple_buffer_sequence_from");
 #endif // defined(ASIO_HAS_MULTIPLE_BUFFER_SEQUENCE_IO)

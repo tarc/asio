@@ -1362,6 +1362,10 @@
 # define ASIO_UNUSED_VARIABLE
 #endif // !defined(ASIO_UNUSED_VARIABLE)
 
+#if !defined(ASIO_UNUSED_PARAMETER)
+# define ASIO_UNUSED_PARAMETER(x) (void)x
+#endif // !defined(ASIO_UNUSED_PARAMETER)
+
 // Helper macro to tell the optimiser what may be assumed to be true.
 #if defined(ASIO_MSVC)
 # define ASIO_ASSUME(expr) __assume(expr)
